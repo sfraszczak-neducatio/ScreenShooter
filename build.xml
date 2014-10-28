@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ScreenShooter" default="build" basedir=".">
+
+    <target name="build" description="Build module" depends="lint, test">
+        <echo>Build ScreenShooter</echo>
+    </target>
+    
+    <target name="test" description="Run phpunit">
+        <exec executable="vendor/bin/phpunit" failonerror="true">
+            <arg line="-c phpunit.xml" />
+            <arg line="--verbose" />
+        </exec>
+    </target>
+
+    <target name="lint" description="Lint src directory">
+        <exec executable="vendor/bin/phpmd" failonerror="true">
+            <arg line="src text phpmdRuleset.xml" />
+        </exec>
+        <exec executable="vendor/zerkalica/phpcs/scripts/phpcs" failonerror="true">
+            <arg line="--standard=Symfony2" />
+            <arg line="src" />
+        </exec>
+    </target>
+
+</project>
