@@ -4,56 +4,9 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4317593cd06bf2e2ea7246190481be4f",
+    "hash": "ce3fb15955173376d5c9ff68d5d107fc",
     "packages": [
-        {
-            "name": "ilya/belt",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ilya-dev/belt.git",
-                "reference": "1c1efc075c3a71de86427a1b5cbbff1a9ee4ae49"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ilya-dev/belt/zipball/1c1efc075c3a71de86427a1b5cbbff1a9ee4ae49",
-                "reference": "1c1efc075c3a71de86427a1b5cbbff1a9ee4ae49",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "2.0.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Belt\\": "src/Belt"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ilya S",
-                    "email": "public.ilya.s@gmail.com"
-                }
-            ],
-            "description": "A handful of tools for PHP developers.",
-            "keywords": [
-                "arrays",
-                "collections",
-                "functions",
-                "objects",
-                "php",
-                "tools",
-                "utilities"
-            ],
-            "time": "2014-06-15 16:40:28"
-        }
+
     ],
     "packages-dev": [
         {
@@ -661,7 +614,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ilya/belt": 20,
         "mikey179/vfsstream": 20,
         "zerkalica/phpcs": 20
     },

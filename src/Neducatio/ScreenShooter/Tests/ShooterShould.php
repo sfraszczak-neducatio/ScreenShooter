@@ -12,29 +12,29 @@ use org\bovigo\vfs\vfsStream;
 class ShooterShould extends \PHPUnit_Framework_TestCase
 {
   private $fileSystem;
-  
+
   /**
    * @test
    */
   public function beInstanceOfInterface()
   {
     $wdSession = new WebDriverSessionDummy();
-    
+
     $this->assertInstanceOf('Neducatio\ScreenShooter\ShooterInterface', new Shooter($wdSession));
   }
-  
+
   /**
    * @test
    */
   public function throwExceptionWhenInjectedWebDriverSessionCanNotMakeScreenshoot()
   {
     $this->setExpectedException('\InvalidArgumentException', 'Web driver session is not able to make screenshots.');
-    
+
     $webDriverSession = new \stdClass();
-    
+
     new Shooter($webDriverSession);
   }
-  
+
   /**
    * @test
    */
@@ -42,10 +42,10 @@ class ShooterShould extends \PHPUnit_Framework_TestCase
   {
     $wdSession = new WebDriverSessionDummy();
     $shooter = new Shooter($wdSession);
-    
+
     $this->assertTrue($shooter->compare('vfs://Screenshots/first.png'));
   }
-  
+
   /**
    * @test
    */
@@ -53,10 +53,10 @@ class ShooterShould extends \PHPUnit_Framework_TestCase
   {
     $wdSession = new WebDriverSessionDummy();
     $shooter = new Shooter($wdSession);
-    
+
     $this->assertFalse($shooter->compare('vfs://Screenshots/second.png'));
   }
-  
+
   /**
    * @test
    */
@@ -66,10 +66,34 @@ class ShooterShould extends \PHPUnit_Framework_TestCase
 
     $wdSession = new WebDriverSessionDummy();
     $shooter = new Shooter($wdSession);
-    
+
     $shooter->compare('vfs://Screenshots/third.png');
   }
-  
+
+  /**
+   * @test
+   */
+  public function throwExceptionWhileAssertingDifferentScreenshots()
+  {
+    $this->setExpectedException('\Neducatio\ScreenShooter\Exception\DifferentScreenshotException', 'Current screenshot is not same as expected.');
+
+    $wdSession = new WebDriverSessionDummy();
+    $shooter = new Shooter($wdSession);
+
+    $shooter->assertScreenshot('vfs://Screenshots/second.png');
+  }
+
+  /**
+   * @test
+   */
+  public function notThrowExceptionWhileAssertingSameScreenshots()
+  {
+    $wdSession = new WebDriverSessionDummy();
+    $shooter = new Shooter($wdSession);
+
+    $shooter->compare('vfs://Screenshots/first.png');
+  }
+
   /**
    * @test
    */
@@ -77,13 +101,16 @@ class ShooterShould extends \PHPUnit_Framework_TestCase
   {
     $wdSession = new WebDriverSessionDummy();
     $shooter = new Shooter($wdSession);
-    
+
     $shooter->save('vfs://Screenshots/third.png');
-    
+
     $saved = base64_encode(file_get_contents('vfs://Screenshots/third.png'));
     $this->assertSame('c2NyZWVuc2hvdGNvbnRlbnQ=', $saved);
   }
-  
+
+  /**
+   * Set up
+   */
   public function setUp()
   {
     $this->fileSystem = vfsStream::setup('Screenshots');
@@ -91,7 +118,7 @@ class ShooterShould extends \PHPUnit_Framework_TestCase
         'first.png' => 'screenshotcontent',
         'second.png' => 'othercontent'
     ));
-    
+
     $this->fileSystem->addChild($structure);
   }
 }
